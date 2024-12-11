@@ -36,8 +36,8 @@ internal class Program
     }
     public static void LoginFrontEnd(string login, string password)
     {
-        var teacherServic = new TeacherServic();
-        var studentServic = new StudentServic();
+        ITeacherServic teacherServic = new TeacherServic();
+        IStudentServic studentServic = new StudentServic();
         if (login == "director" && password == "director")
         {
             Console.Clear();
@@ -63,7 +63,7 @@ internal class Program
     }
     public static void DirectorFrontEnd()
     {
-        var teacherServic = new TeacherServic();
+        ITeacherServic teacherServic = new TeacherServic();
         var option = 0;
         while (true)
         {
@@ -93,17 +93,17 @@ internal class Program
                 while (true)
                 {
                     Console.WriteLine("Select techer gender: ");
-                    Console.WriteLine("1. Male");
-                    Console.WriteLine("2. Female");
+                    Console.WriteLine("1. Erkak");
+                    Console.WriteLine("2. Ayol");
                     option = int.Parse(Console.ReadLine());
                     if (option == 1)
                     {
-                        teacher.Gender = "Male";
+                        teacher.Gender = "Erkak";
                         break;
                     }
                     else if (option == 2)
                     {
-                        teacher.Gender = "Female";
+                        teacher.Gender = "Ayol";
                         break;
                     }
                     else
@@ -137,7 +137,8 @@ internal class Program
             {
                 var teacher = new Teacher();
                 Console.Write("Enter teacher Id: ");
-                teacher.Id = Guid.Parse(Console.ReadLine());
+                Guid id;
+                Guid.TryParse(Console.ReadLine(), out id); 
                 Console.Write("Enter teacher first name: ");
                 teacher.FirstName = Console.ReadLine();
                 Console.Write("Enter teacher last name: ");
@@ -234,9 +235,9 @@ internal class Program
     }
     public static void TeacherFrontEnd(string login, string password)
     {
-        var studentServic = new StudentServic();
-        var teacherServic = new TeacherServic();
-        var testServic = new TestServic();
+        IStudentServic studentServic = new StudentServic();
+        ITeacherServic teacherServic = new TeacherServic();
+        ITestServic testServic = new TestServic();
         var teacher = teacherServic.GetTeacherByLogin(login, password);
         var option = 0;
         while (true) 
@@ -273,17 +274,17 @@ internal class Program
                 while (true)
                 {
                     Console.WriteLine("Select student gender: ");
-                    Console.WriteLine("1. Male");
-                    Console.WriteLine("2. Female");
+                    Console.WriteLine("1. Erkak");
+                    Console.WriteLine("2. Ayol");
                     option = int.Parse(Console.ReadLine());
                     if (option == 1)
                     {
-                        student.Gender = "Male";
+                        student.Gender = "Erkak";
                         break;
                     }
                     else if (option == 2)
                     {
-                        student.Gender = "Female";
+                        student.Gender = "Ayol";
                         break;
                     }
                     else
@@ -315,29 +316,33 @@ internal class Program
             {
                 var student = new Student();
                 Console.Write("Enter student id: ");
-                student.Id = Guid.Parse(Console.ReadLine());
+                Guid id;
+                Guid.TryParse(Console.ReadLine(), out id);
+                student.Id = id;
                 Console.Write("Enter first name: ");
                 student.FirstName = Console.ReadLine();
                 Console.Write("Enter last name: ");
                 student.LastName = Console.ReadLine();
                 Console.Write("Enter student age: ");
-                student.Age = int.Parse(Console.ReadLine());
+                int age;
+                int.TryParse(Console.ReadLine(), out age);
+                student.Age = age;
                 Console.Write("Enter student degree: ");
                 student.Degree = Console.ReadLine();
                 while (true)
                 {
                     Console.WriteLine("Select student gender: ");
-                    Console.WriteLine("1. Male");
-                    Console.WriteLine("2. Female");
+                    Console.WriteLine("1. Erkak");
+                    Console.WriteLine("2. Ayol");
                     option = int.Parse(Console.ReadLine());
                     if (option == 1)
                     {
-                        student.Gender = "Male";
+                        student.Gender = "Erkak";
                         break;
                     }
                     else if (option == 2)
                     {
-                        student.Gender = "Female";
+                        student.Gender = "Ayol";
                         break;
                     }
                     else
@@ -459,13 +464,14 @@ internal class Program
     public static void StudentFrontEnd(string login, string password)
     {
         var option = 0;
-        var studentServic = new StudentServic();
-        var testServic = new TestServic();
-        var teacherServic = new TeacherServic();
+        IStudentServic studentServic = new StudentServic();
+        ITeacherServic teacherServic = new TeacherServic();
+        ITestServic testServic = new TestServic();
         var student = studentServic.GetStudentByLogin(login, password);
         while (true)
         {
             Console.Clear();
+            Console.WriteLine($"{student.LastName} {student.FirstName}");
             Console.WriteLine("0. Back");
             Console.WriteLine("1. Solving tests");
             Console.WriteLine("2. Like or Dislike teacher");

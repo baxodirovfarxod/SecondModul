@@ -3,7 +3,7 @@ using System.Text.Json;
 
 namespace _2._2dars.Servisec;
 
-public class TeacherServic
+public class TeacherServic : ITeacherServic
 {
     private string teacherFilePath;
     private List<Teacher> teachers;

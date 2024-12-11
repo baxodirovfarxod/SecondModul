@@ -4,7 +4,7 @@ using static System.Net.Mime.MediaTypeNames;
 
 namespace _2._2dars.Servisec;
 
-public class TestServic
+public class TestServic : ITestServic
 {
     private string testFilePath;
     private List<Test> tests;

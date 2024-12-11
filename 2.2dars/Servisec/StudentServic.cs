@@ -4,11 +4,10 @@ using System.Text.Json;
 
 namespace _2._2dars.Servisec;
 
-public class StudentServic
+public class StudentServic : IStudentServic
 {
     private string studentFilePath;
     private List<Student> students;
-
     public StudentServic()
     {
         studentFilePath = @"D:\C#\DataBase\Student.json";
@@ -122,5 +121,4 @@ public class StudentServic
         var studentsJson = JsonSerializer.Serialize(students);
         File.WriteAllText(studentFilePath, studentsJson);
     }
-   
 }
